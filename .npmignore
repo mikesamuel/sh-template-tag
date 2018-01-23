@@ -1,0 +1,8 @@
+package-lock.json
+test/**
+.gitignore
+RELEASE-checklist.md
+sh-template-tag-*.tgz
+
+# Whoa!
+.npmignore
