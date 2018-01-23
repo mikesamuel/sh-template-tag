@@ -12,6 +12,13 @@ in which they appear.
 
 ## Usage Example
 
+<!--
+
+This mirrors a testcase in ./test/test.js so if you modify this,
+be sure to reflect changes there.
+
+-->
+
 ```js
 const { sh, ShFragment } = require('sh-template-tag')
 

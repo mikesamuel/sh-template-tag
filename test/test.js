@@ -271,4 +271,22 @@ EOF
 `)
     })
   })
+  describe('example code', () => {
+    // This mirrors example code in ../README.md so if you modify this,
+    // be sure to reflect changes there.
+    it('echo', () => {
+      function echoCommand (a, b, c) {
+        return sh`echo -- ${a} "${b}" 'c: ${c}'`
+      }
+
+      const result = echoCommand(
+        '; rm -rf / #',
+        '$(cat /etc/shadow)',
+        '\'"$(cat /etc/shadow)"\n#')
+
+      expect(result.content).to.equal(
+        'echo -- \'; rm -rf / #\' "\\$(cat /etc/shadow)"' +
+        ' \'c: \'"\'"\'"$(cat /etc/shadow)"\n#\'')
+    })
+  })
 })
