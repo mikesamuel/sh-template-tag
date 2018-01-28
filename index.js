@@ -354,8 +354,8 @@ function computeShellContexts (staticStrings) {
  * Composes an ShFragment whose content consists of staticStrings
  * interleaved with untrusted appropriately escaped.
  */
-function composeShellString ({ contexts, raw }, staticStrings, untrusted) {
-  const trusted = raw
+function composeShellString (
+  options, { contexts, raw: trusted }, strings, untrusted) {
   // A buffer onto which we accumulate output.
   const buf = [ trusted[0] ]
   let [ currentContext ] = contexts

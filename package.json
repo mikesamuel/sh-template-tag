@@ -18,7 +18,7 @@
     "index.js"
   ],
   "dependencies": {
-    "template-tag-common": ">=1.0.2"
+    "template-tag-common": ">=2.0.0"
   },
   "scripts": {
     "test": "./node_modules/.bin/standard && ./node_modules/.bin/eslint . && ./node_modules/.bin/mocha"
