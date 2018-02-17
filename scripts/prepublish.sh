@@ -29,7 +29,8 @@ pushd "$TMP_WORKSPACE"
   tar xfz "$TARBALL" && (
     pushd "$TMP_WORKSPACE"/package
       npm install \
-      && npm test
+      && npm run lint \
+      && npm run cover
     popd >& /dev/null
   )
 popd >& /dev/null
@@ -53,5 +54,5 @@ $ npm publish --otp "$OTP"
 
 
 3. Push the release label to GitHub.
-$ git push origin master
+$ git push --tags origin master
 '
