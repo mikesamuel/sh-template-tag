@@ -50,16 +50,26 @@ echo -- '; rm -rf / #' "\$(cat /etc/shadow)" 'c: '"'"'"$(cat /etc/shadow)"
 ### <code>sh&#96;...&#96;</code>
 
 A tag handler that escapes values so that they contribute the literal
-characters, returning a `ShFragment`.
+characters, returning an `ShFragment`.
 
-Values that are `instanceof ShFragment` are not escaped when they
-appear outside quotes.
+`ShFragment`s are not escaped when they appear outside quotes.
 
-### `new ShFragment(str)`
+### `ShFragment(str)`
 
 A [`TypedString`][] subclass that specifies a fragment of a shell
 command suitable for embedding outside a quoted string and which
 has balanced delimiters.
+
+`ShFragment`s are [mintable][] so to create one, do
+
+```js
+const { Mintable } = require('node-sec-patterns')
+const { ShFragment } = require('sh-template-tag')
+
+const makeShFragment = Mintable.minterFor(ShFragment, (x) => String(x))
+
+const myShFragment = makeShFragment('echo Hello;')
+```
 
 
 ## Caveats
@@ -74,3 +84,4 @@ has balanced delimiters.
 [chapter7]: https://nodesecroadmap.fyi/chapter-7/child-processes.html
 [shell injection]: https://nodesecroadmap.fyi/chapter-1/threat-SHP.html
 [`TypedString`]: https://www.npmjs.com/package/template-tag-common
+[mintable]: https://www.npmjs.com/package/node-sec-patterns#creating-mintable-values

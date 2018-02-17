@@ -20,6 +20,7 @@
 const { expect } = require('chai')
 const { describe, it } = require('mocha')
 const { sh, ShFragment, makeLexer } = require('../index')
+const { Mintable } = require('node-sec-patterns')
 
 /**
  * Feeds chunks to the lexer and concatenates contexts.
@@ -173,11 +174,16 @@ describe('sh template tags', () => {
     it('missing heredoc label', () => {
       expect(() => tokens('cat <<', '\nfoo bar\n', ';')).to.throw()
     })
+    it('escape at chunk end', () => {
+      expect(() => tokens('echo "\\', '"')).to.throw()
+    })
   })
+
+  const mintShFragment = Mintable.minterFor(ShFragment)
 
   const str = 'a"\'\n\\$b'
   const numb = 1234
-  const frag = new ShFragment(' frag ')
+  const frag = mintShFragment(' frag ')
   describe('template tag', () => {
     it('string in top level', () => {
       runShTest(`echo 'a"'"'"'\n\\$b'`, () => sh`echo ${str}`)
@@ -268,6 +274,18 @@ EOF_ZQHNfpzxDMLfdgCg8NUgxceUCSQiISNU1zQuqzI6uzs
 cat <<EOF
 ${'EOF\nrm -rf /\ncat <<EOF'}
 EOF
+`)
+    })
+    it('null in strings', () => {
+      runShTest(
+        `echo "" ''`,
+        () => sh`echo "${null}" '${null}'`)
+    })
+    it('comment bypasses', () => {
+      const payload = '\ncat /etc/shadow #'
+      runShTest(
+        'echo \'\ncat /etc/shadow #\' #  \n',
+        () => sh`echo ${payload} # ${payload}
 `)
     })
   })

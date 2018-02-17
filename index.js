@@ -30,6 +30,7 @@ const {
   trimCommonWhitespaceFromLines,
   TypedString
 } = require('template-tag-common')
+const { Mintable } = require('node-sec-patterns')
 
 /** A regex chunk that matches only s. */
 function reEsc (str) {
@@ -48,7 +49,7 @@ const NLS = [ '\n', '\r\n', '\r' ]
 // Embedders take the value to embed and return the text to substitute. */
 /** Embeds a value where a single quoted string token is allowed. */
 function emsq (x) {
-  if (x instanceof ShFragment) {
+  if (isShFragment(x)) {
     return x.content
   }
   return `'${emisq(x)}'`
@@ -207,16 +208,13 @@ function makeLexer () {
         throw fail`Failed to maximally match chunk ${chunk}`
       }
       const match = bodyRegExp.exec(chunk)
-      if (!match) {
-        // Can occur if a chunk ends in '\\' and bodyPattern
-        // allows escapes.
-        throw fail`Unprocessable content ${chunk} in context ${top}`
-      }
-
-      chunk = chunk.substring(match[0].length)
-      position += match[0].length
+      // Our bodies always have a kleene-* so match will never be empty.
+      const nCharsMatched = match[0].length
+      chunk = chunk.substring(nCharsMatched)
+      position += nCharsMatched
 
       if (!chunk) {
+        // All done.  Yay!
         break
       }
 
@@ -299,7 +297,7 @@ function makeLexer () {
       // We can't handle that level of complexity here
       // so fail for all heredoc that do not match word.
       if (!fullDelim) {
-        throw fail`Failed to find heredoc word at ${chunk}.  Use a nonce generator instead of .`
+        throw fail`Failed to find heredoc word at ${chunk}.  Just pick a label and sh will prevent collisions.`
       }
       start += fullDelim[1]
       delimLength = fullDelim[0].length
@@ -329,6 +327,9 @@ function makeLexer () {
  * well-formed SQL tokens.
  */
 class ShFragment extends TypedString {}
+Object.defineProperty(ShFragment, 'contractKey', { value: 'ShFragment' })
+const isShFragment = Mintable.verifierFor(ShFragment)
+const mintShFragment = Mintable.minterFor(ShFragment, (x) => String(x))
 
 /** Applies the lexer to the static parts. */
 function computeShellContexts (staticStrings) {
@@ -376,7 +377,7 @@ function composeShellString (
     currentContext = newContext
   }
 
-  return new ShFragment(buf.join(''))
+  return mintShFragment(buf.join(''))
 }
 
 /**
