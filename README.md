@@ -15,7 +15,7 @@ in which they appear.
 
 <!--
 
-This mirrors a testcase in ./test/test.js so if you modify this,
+This mirrors a testcase in ./test/example-test.js so if you modify this,
 be sure to reflect changes there.
 
 -->

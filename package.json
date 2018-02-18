@@ -15,7 +15,8 @@
   "version": "2.0.0",
   "main": "index.js",
   "files": [
-    "index.js"
+    "index.js",
+    "lib/*.js"
   ],
   "dependencies": {
     "template-tag-common": ">=3.0.1"
