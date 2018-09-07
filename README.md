@@ -6,6 +6,7 @@
 [![Dependencies Status](https://david-dm.org/mikesamuel/sh-template-tag/status.svg)](https://david-dm.org/mikesamuel/sh-template-tag)
 [![npm](https://img.shields.io/npm/v/sh-template-tag.svg)](https://www.npmjs.com/package/sh-template-tag)
 [![Coverage Status](https://coveralls.io/repos/github/mikesamuel/sh-template-tag/badge.svg?branch=master)](https://coveralls.io/github/mikesamuel/sh-template-tag?branch=master)
+[![Install Size](https://packagephobia.now.sh/badge?p=sh-template-tag)](https://packagephobia.now.sh/result?p=sh-template-tag)
 [![Known Vulnerabilities](https://snyk.io/test/github/mikesamuel/sh-template-tag/badge.svg?targetFile=package.json)](https://snyk.io/test/github/mikesamuel/sh-template-tag?targetFile=package.json)
 
 Provides a string template tag that makes it easy to compose `sh` and
