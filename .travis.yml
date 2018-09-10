@@ -1,5 +1,6 @@
 language: node_js
 node_js:
+  - "6"
   - "7"
   - "8"
   - "9"
@@ -9,5 +10,5 @@ node_js:
 # Use faster Docker architecture on Travis.
 sudo: false
 
-script:        npm run-script lint && npm test
+script:        ./scripts/validate.sh
 after_success: npm run coveralls
