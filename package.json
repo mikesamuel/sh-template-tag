@@ -19,7 +19,7 @@
     "lib/*.js"
   ],
   "dependencies": {
-    "template-tag-common": "^4.0.0"
+    "template-tag-common": "^4.0.3"
   },
   "scripts": {
     "cover": "istanbul cover _mocha",
