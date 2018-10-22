@@ -18,6 +18,11 @@
     "index.js",
     "lib/*.js"
   ],
+  "mintable": {
+    "selfNominate": [
+      "ShFragment"
+    ]
+  },
   "dependencies": {
     "template-tag-common": "^4.0.4"
   },
