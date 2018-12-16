@@ -17,8 +17,7 @@
 
 /* eslint "id-length": off */
 
-require('module-keys/cjs').polyfill(
-  module, require, 'node_modules/sh-template-tag/test/tag-test.js')
+require('module-keys/cjs').polyfill(module, require)
 
 const { expect } = require('chai')
 const { describe, it } = require('mocha')
@@ -45,7 +44,7 @@ function runShTest (golden, test) {
 }
 
 describe('sh template tags', () => {
-  const mintShFragment = require.keys.unboxStrict(
+  const mintShFragment = require.moduleKeys.unboxStrict(
     Mintable.minterFor(ShFragment))
 
   const str = 'a"\'\n\\$b'
