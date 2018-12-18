@@ -24,7 +24,7 @@
     ]
   },
   "dependencies": {
-    "template-tag-common": "^5.0.0"
+    "template-tag-common": "^5.0.1"
   },
   "scripts": {
     "cover": "istanbul cover _mocha",
